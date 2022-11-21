@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)z3d7%t&ogtnrlqysq&d1qb&ldn3a38$)=3242o&$fi)r*tanp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'solarify'
 ]
 
 MIDDLEWARE = [
@@ -76,13 +78,12 @@ WSGI_APPLICATION = 'solarify.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environm.get('DB_NAME'),
-        'USER': os.environm.get('DB_USER'),
-        'PASSWORD': os.environm.get('DB_PASSWORD'),
-        'HOST': os.environm.get('DB_HOST'),
-        'PORT':os.environm.get('DB_PORT'),
+        'NAME': 'solarify_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234567890',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
-    
 }
 
 
