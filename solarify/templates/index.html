@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+<meta charset="utf-8">
+{% load static %}
+<title>Solarify</title>
+<link rel="stylesheet" href="{% static 'solarify/css/bootstrap.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'solarify/css/jquery-ui.css' %}" type="text/css">
+<script src="{% static 'solarify/js/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'solarify/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'solarify/js/jquery-ui.js' %}" type="text/javascript"></script>
+<script src="{% static 'solarify/js/chart.bundle.min.js' %}" type="text/javascript"></script>
+<style>
+    html , body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        background-color: #eeeeee;
+        color: #949494;
+    }
+    fieldset {
+        border: 0;
+        padding: 5px;
+        background-color: #f7f7f7;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        overflow: hidden;
+        border-radius: 0.7em;
+    }
+    fieldset > h3 {
+        font-weight: 500;
+        font-size: 1.2em;
+        text-align: center;
+        background-color: #FFF;
+        margin: -0.824em -0.824em -0.824em -0.824em;
+        padding: lem; box-shadow: 0 0 3px rgba(0,0,0,0.1);
+        border-radius: 0.3em 0.3em 0 0;
+    }
+    .col20 {
+        float: left;
+        width: 20%;
+        padding: 0 5px;
+        margin-top: 10px;
+    }
+    .col80 {
+        float: left;
+        width: 20%;
+        padding: 0 5px;
+        margin-top: 10px;
+    }
+    .row {
+        float: left;
+        width: 100%;
+        padding: 0 5px;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .wrapper {
+        height: 400px;
+        width: 100%;
+    }
+    .hide-calendar .ui-datepicker-calender{
+        display: none;
+    }
+
+</style>
+</head>
+<script>
+   $(document).ready(function(){
+    $('#type-request').on('change', function() {
+        if ( this.value == 'Day')
+        {
+            $("#day").show();
+            $("#monthes").hide();
+            $("#years").hide();
+        }
+        else if(this.value == 'Month'){
+            $("#monthes").show();
+            $("#day").hide();
+            $("#years").hide();
+        }
+        else if(this.value = 'Year'){
+            $("#years").show();
+            $("#day").hide();
+            $("#monthes").hide();
+        }
+    });
+});
+</script>
+<script>
+$( function() {
+    $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    onSelect: function (dateText, inst) {
+        $(this).parent('form').submit();
+    } 
+    });
+});
+</script>
+<script>
+$(function() {
+    $('.month-picker').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        closeText:'Select',
+        currentText: 'This month',
+        dateFormat: 'yy-mm',
+        beforeShow: function(input) {
+            $(input).datepicker("widget").addClass('hide-calendar');
+        }
+        onClose: function(dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            $(this).parent('form').submit();
+        }
+    });
+});
+</script>
+<script>
+$(function() {
+    $('.year-picker').datepicker( {
+        yearRange: "c:",
+        changeMonth: false,
+        changeYear: true,
+        showButtonPanel: true,
+        closeText:'Select',
+        currentText: 'This year',
+        beforeShow: function(input) {
+            $(input).datepicker("widget").addClass('hide-calendar');
+        },
+        onClose: function(dateText, inst) {
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).val($.datepicker.formatDate("yy", newDate(year, 0, 1)));
+            $(this).parent('form').submit();
+        }
+    });
+});
+</script>
+<body>
+    <div class="row">
+        <div class="col20">
+            <div class="row">
+                <fieldset>
+                    <div class="form-group" align="center">
+                        <label for="type request" align="center">Selected range {{solarify title|safe}}</p>
+                        <select class="form-control" name="type-request" id="type-request" align="center" size="auto">
+                            <option value="Day" selected>Day</option>
+                            <option value="Month">Month</option>
+                            <option value="Year">Year</option>
+                        </select>
+                        <div id="day">
+                            <form class="input-group" action="{% url 'date' %}" method="GET" accept-charset="utf-8" maxlength="10">
+                                <input type="text" autocomplete="off" id="datepicker" class="datepicker" placeholder="select date" name="date" size="auto">
+                            </form>
+                        </div>
+                        <div id="monthes" class="form-group" align="center" style="display:none">
+                            <form class="form-group" action="{% url 'date' %}" method="GET" accept-charset="utf-8" maxlength="10">
+                                <input type="text" autocomplete="off" id="month-picker" class="month-picker" placeholder="select month" name="date" size="auto">
+                            </form>
+                        </div>
+                        <div id="years" class="form-group" align="center" style="display:none">
+                            <form class="form-group" action="{% url 'date' %}" method="GET" accept-charset="utf-8" maxlength="10">
+                                <input type="'text" autocomplete="off" id="year-picker" class="year-picker" placeholder="select year" name="date" size="auto>"
+                            </form>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="col80">
+            <div class="row">
+                <fieldset>
+                    <h3 id="date solar">Solar energy for {{solar title|safe}} {{total energy|safe}}</h3>
+                    <div class="wrapper">
+                        <canvas id="SolarTrend"></canvas>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    Chart.defaults.LineWithLine = Chart.defaults.line;
+    Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+    draw: function(ease) {
+        Chart.controllers.line.prototype.draw.call(this, ease);
+        if (this.chart.tooltip. active && this.chart.tooltip. active.length) {
+            var activePoint = this.chart.tooltip. active[0],
+            ctx = this.chart.ctx,
+            x = activePoint.tooltipPosition().x,
+            topY = this.chart.scales['y-axis-0'].top,
+            bottomY = this.chart.scales['y-axis-0'].bottom;
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, topY);
+            ctx.lineTo(x, bottomY);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#FF0000";
+            ctx.stroke();
+            ctx.restore();
+        }
+    }    
+    })
+
+    function DrawSolarTrend(id) {
+        var ctx = document.getElementById(id).getContext('2d');
+        var chart = new Chart(ctx, {
+
+            type: 'LineWithLine',
+            data: {
+                labels: {{labels|safe}},
+                datasets: [
+                {
+                    borderWidth: 2,
+                    label: 'Power production, kWh',
+                    backgroundColor: 'rgb(24, 182, 19, 0.5)',
+                    borderColor: 'rgb(24, 182, 19)',
+                    data: {{power production|safe}},
+                    pointRadius: 0,
+                    fill: true,
+                    pointStyle: 'rect'
+                },
+                ]
+            },
+            options: {
+                animation: {
+            duration: 0
+                },
+                maintainAspectRatio: false,
+                legend: {
+                    position: "bottom",
+                    align: "center",
+                    labels:{
+                        fontsize: 14,
+                        usePointStyle:true,
+                    }
+                },
+                  title: {
+                    fontsize: 20,
+                    display: false
+                    text: name
+                },
+                "export": {
+                    enabled: true
+                },
+                events: ["click"],
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    titleFontSize: 14,
+                    animationDuration: 0,
+                },
+                scales: {
+                    xAxes:[{
+                        type: 'time',
+                        time: {
+                            unit: '{{unit|safe'}},
+                            tooltipFormat: 'YYYY-MM-DD HH:mm'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+
+                
+            }
+        });
+    }
+    window.onload = function() {
+        DrawSolarTrend("SolarTrend");
+    };
+    </script>
+</body>
+</html>
