@@ -20,7 +20,7 @@ const displayChart = (data, labels) => {
       labels: labels,
       datasets: [
         {
-          label: `Amount (Last 6 months) (${type} View)`,
+          label: `power (Last 6 months) (${type} View)`,
           data: data,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -41,7 +41,7 @@ const displayChart = (data, labels) => {
     options: {
       title: {
         display: true,
-        text: "Expense  Distribution Per Category",
+        text: "usage  Distribution Per Category",
         fontSize: 25,
       },
       legend: {
@@ -59,14 +59,14 @@ const getCategoryData = () => {
   fetch("last_3months_stats")
     .then((res) => res.json())
     .then((res1) => {
-      const results = res1.expenses_category_data;
+      const results = res1.usage_category_data;
       const [labels, data] = [Object.keys(results), Object.values(results)];
       console.log("data", data);
       displayChart(data, labels);
     });
 
-  const data = [3000, 2000, 40000, 7000];
-  const labels = ["TRAVEL", "FOOD", "FRIENDS", "FAMILY"];
+  const data = [3000, 2000, 60000];
+  const labels = ["SOLAR", "GENERATOR", "MAINS"];
 };
 
 document.onload = getCategoryData();

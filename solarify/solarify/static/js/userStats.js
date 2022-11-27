@@ -6,24 +6,24 @@ const getHumanMonth = (m) => {
 };
 
 const updateTopMonthsUI = (topMonth, type) => {
-  if (type === "expenses") {
-    document.querySelector(".expense-top-month").textContent = getHumanMonth(
+  if (type === "usage") {
+    document.querySelector(".usage-top-month").textContent = getHumanMonth(
       Object.keys(topMonth)[0]
     );
     document.querySelector(
-      ".expense-top-month-value"
+      ".usage-top-month-value"
     ).textContent = Object.values(topMonth)[0];
   } else {
-    document.querySelector(".income-top-month").textContent = getHumanMonth(
+    document.querySelector(".production-top-month").textContent = getHumanMonth(
       Object.keys(topMonth)[0]
     );
     document.querySelector(
-      ".income-top-month-value"
+      ".production-top-month-value"
     ).textContent = Object.values(topMonth)[0];
   }
 };
 
-const updateThisMonthUI = (data = [], type = "expenses") => {
+const updateThisMonthUI = (data = [], type = "usage") => {
   const currentMonthNumber = new Date().getMonth() + 1;
 
   const currentMonthData = data.find((item, i) => {
@@ -32,24 +32,24 @@ const updateThisMonthUI = (data = [], type = "expenses") => {
     return item;
   });
 
-  if (type === "expenses") {
-    document.querySelector(".expense-this-month").textContent = getHumanMonth(
+  if (type === "usage") {
+    document.querySelector(".usage-this-month").textContent = getHumanMonth(
       Object.keys(currentMonthData)[0]
     );
     document.querySelector(
-      ".expense-this-month-value"
+      ".usage-this-month-value"
     ).textContent = Object.values(currentMonthData)[0];
   } else {
-    document.querySelector(".income-this-month").textContent = getHumanMonth(
+    document.querySelector(".production-this-month").textContent = getHumanMonth(
       Object.keys(currentMonthData)[0]
     );
     document.querySelector(
-      ".income-this-month-value"
+      ".production-this-month-value"
     ).textContent = Object.values(currentMonthData)[0];
   }
 };
 
-const formatStats = (data = {}, type = "expenses") => {
+const formatStats = (data = {}, type = "usage") => {
   const monthData = data.months;
   console.log("monthData", monthData);
   const vals = Object.values(monthData);
@@ -59,11 +59,11 @@ const formatStats = (data = {}, type = "expenses") => {
     Object.values(a)[0] > Object.values(b)[0] ? -1 : 1
   );
   const topMonth = sorted[0];
-  if (type === "expenses") {
-    updateThisMonthUI(s, "expenses");
+  if (type === "usage") {
+    updateThisMonthUI(s, "usage");
   }
-  if (type === "income") {
-    updateThisMonthUI(s, "income");
+  if (type === "production") {
+    updateThisMonthUI(s, "production");
   }
 
   updateTopMonthsUI(topMonth, type);
@@ -71,7 +71,7 @@ const formatStats = (data = {}, type = "expenses") => {
 
 const setGraphs = (data) => {};
 const fetchData = () => {
-  const promise1 = fetch("/expense_summary_rest")
+  const promise1 = fetch("/usage_summary_rest")
     .then((res) => res.json())
     .then((data) => Promise.resolve(data))
     .catch((e) => Promise.reject(e));
@@ -79,11 +79,11 @@ const fetchData = () => {
     .then((res) => res.json())
     .then((data) => Promise.resolve(data))
     .catch((e) => Promise.reject(e));
-  const promise3 = fetch("/income/income_sources_data")
+  const promise3 = fetch("/production/production_sources_data")
     .then((res) => res.json())
     .then((data) => Promise.resolve(data))
     .catch((e) => Promise.reject(e));
-  const promise4 = fetch("/income/income_summary_rest")
+  const promise4 = fetch("/production/production_summary_rest")
     .then((res) => res.json())
     .then((data) => Promise.resolve(data))
     .catch((e) => Promise.reject(e));
@@ -91,13 +91,13 @@ const fetchData = () => {
   Promise.all([promise1, promise2, promise3, promise4])
     .then((data) => {
       const [
-        thisYearExpenses,
-        expenseCategories,
-        incomeSources,
-        thisYearIncome,
+        thisYearusage,
+        usageCategories,
+        productionSources,
+        thisYearproduction,
       ] = data;
-      formatStats(thisYearExpenses.this_year_expenses_data, "expenses");
-      formatStats(thisYearIncome.this_year_income_data, "income");
+      formatStats(thisYearusage.this_year_usage_data, "usage");
+      formatStats(thisYearproduction.this_year_production_data, "production");
       setGraphs(data);
     })
     .catch((errs) => console.log("errs", errs));
