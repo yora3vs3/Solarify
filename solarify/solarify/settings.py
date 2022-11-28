@@ -76,13 +76,13 @@ WSGI_APPLICATION = 'solarify.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_USER_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'solarify_db',                      
+    'USER': 'postgres',
+    'PASSWORD': 'Mayora1999',
+    'HOST': 'localhost',
+    'PORT': '5432',
     }
 }
 
