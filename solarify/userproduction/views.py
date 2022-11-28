@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Hybrid, UserProduction
 from django.core.paginator import Paginator
-from userpreferences.models import UserPreference
+from userpreferenses.models import UserPreference
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
