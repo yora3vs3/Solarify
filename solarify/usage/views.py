@@ -39,7 +39,7 @@ def index(request):
     context = {
         'usage': usage,
         'page_obj': page_obj,
-        'units': unit
+        'units': unit,
     }
     return render(request, 'usage/index.html', context)
 

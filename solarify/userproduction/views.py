@@ -29,14 +29,15 @@ def index(request):
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
     if UserPreference.objects.filter(user = request.user).exists():
-            unit = UserPreference.objects.get(user = request.user).unit
+        unit = UserPreference.objects.get(user = request.user).unit
     else:
         unit = 'KW'
        
     context = {
-        'usage': usage,
+        'production': production,
         'page_obj': page_obj,
-        'units': unit
+        'units': unit,
+    }
     return render(request, 'production/index.html', context)
 
 
