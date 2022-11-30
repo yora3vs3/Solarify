@@ -34,7 +34,7 @@ def index(request):
     if UserPreference.objects.filter(user = request.user).exists():
         unit = UserPreference.objects.get(user = request.user).unit
     else:
-        unit = 'INR - Indian Rupee'
+        unit = 'KW'
        
     context = {
         'usage': usage,
