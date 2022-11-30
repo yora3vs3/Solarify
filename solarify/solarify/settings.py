@@ -80,7 +80,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'solarify_db',                      
     'USER': 'postgres',
-    'PASSWORD': '1234567890',
+    'PASSWORD': 'Mayora1999',
     'HOST': 'localhost',
     'PORT': '5432',
     }
@@ -133,14 +133,13 @@ MESSAGE_TAGS = {
 
 
 # email stuff
-<<<<<<< HEAD
 EMAIL_HOST = "smtp.yahoo.com"
 EMAIL_HOST_USER = "mayora.brian@yahoo.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = 'Mayora1999'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-=======
+
 
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_HOST_USER = os.environ.get('USER_EMAIL')
@@ -155,4 +154,4 @@ EMAIL_HOST_PASSWORD = 'pjbnkbxfugnaxird'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
->>>>>>> c825ab59c17408b68f641766ce3e45d7f8db4780
+
