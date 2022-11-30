@@ -5,7 +5,7 @@ from django.utils.timezone import now
 # Create your models here.
 
 
-class usage(models.Model):
+class Usage(models.Model):
     power = models.FloatField()
     date = models.DateField(default=now)
     description = models.TextField()

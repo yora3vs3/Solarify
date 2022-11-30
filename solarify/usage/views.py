@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Category, usage
+from .models import Category, Usage
 # Create your views here.
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -14,10 +14,11 @@ import datetime
 def search_usage(request):
     if request.method == 'POST':
         search_str = json.loads(request.body).get('searchText')
-        usage = usage.objects.filter(
-            power__istartswith=search_str, owner=request.user) | usage.objects.filter(
-            date__istartswith=search_str, owner=request.user) | usage.objects.filter(
-            description__icontains=search_str, owner=request.user) | usage.objects.filter(
+        usage=""
+        usage =  Usage.objects.filter(
+            power__istartswith=search_str, owner=request.user) | Usage.objects.filter(
+            date__istartswith=search_str, owner=request.user) | Usage.objects.filter(
+            description__icontains=search_str, owner=request.user) | Usage.objects.filter(
             category__icontains=search_str, owner=request.user)
         data = usage.values()
         return JsonResponse(list(data), safe=False)
@@ -26,15 +27,15 @@ def search_usage(request):
 @login_required(login_url='/authentication/login')
 def index(request):
     categories = Category.objects.all()
-    usage = usage.objects.filter(owner=request.user)
+    usage = Usage.objects.filter(owner=request.user)
     paginator = Paginator(usage, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
-    currency = UserPreference.objects.get(user=request.user).currency
+    units = UserPreference.objects.get(user=request.user).units
     context = {
         'usage': usage,
         'page_obj': page_obj,
-        'currency': currency
+        'units': units
     }
     return render(request, 'usage/index.html', context)
 
@@ -63,7 +64,7 @@ def add_usage(request):
             messages.error(request, 'description is required')
             return render(request, 'usage/add_usage.html', context)
 
-        usage.objects.create(owner=request.user, power=power, date=date,
+        Usage.objects.create(owner=request.user, power=power, date=date,
                                category=category, description=description)
         messages.success(request, 'usage saved successfully')
 
@@ -72,7 +73,7 @@ def add_usage(request):
 
 @login_required(login_url='/authentication/login')
 def usage_edit(request, id):
-    usage = usage.objects.get(pk=id)
+    usage = Usage.objects.get(pk=id)
     categories = Category.objects.all()
     context = {
         'usage': usage,
@@ -108,7 +109,7 @@ def usage_edit(request, id):
 
 
 def delete_usage(request, id):
-    usage = usage.objects.get(pk=id)
+    usage = Usage.objects.get(pk=id)
     usage.delete()
     messages.success(request, 'usage removed')
     return redirect('usage')
@@ -117,7 +118,7 @@ def delete_usage(request, id):
 def usage_category_summary(request):
     todays_date = datetime.date.today()
     six_months_ago = todays_date-datetime.timedelta(days=30*6)
-    usage = usage.objects.filter(owner=request.user,
+    usage = Usage.objects.filter(owner=request.user,
                                       date__gte=six_months_ago, date__lte=todays_date)
     finalrep = {}
 

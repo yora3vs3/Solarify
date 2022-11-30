@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import usage, Category
+from .models import Usage, Category
 # Register your models here.
 
 
@@ -10,5 +10,5 @@ class usageAdmin(admin.ModelAdmin):
     list_per_page = 5
 
 
-admin.site.register(usage, )
+admin.site.register(Usage, )
 admin.site.register(Category)
