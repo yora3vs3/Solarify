@@ -61,8 +61,8 @@ def add_usage(request):
             messages.error(request, 'power is required')
             return render(request, 'usage/add_usage.html', context)
         description = request.POST['description']
-        date = request.POST['usage_date']
-        category = request.POST['category']
+        date = request.POST['usage_date']     
+        category = request.POST.get('category', False);
 
         if not description:
             messages.error(request, 'description is required')
@@ -85,7 +85,7 @@ def usage_edit(request, id):
         'categories': categories
     }
     if request.method == 'GET':
-        return render(request, 'usage/edit-usage.html', context)
+        return render(request, 'usage/edit_usage.html', context)
     if request.method == 'POST':
         power = request.POST['power']
 

@@ -6,14 +6,14 @@ from django.utils.timezone import now
 
 
 class UserProduction(models.Model):
-    amount = models.FloatField()  # DECIMAL
+    power = models.FloatField()  # DECIMAL
     date = models.DateField(default=now)
     description = models.TextField()
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    Hybrid = models.CharField(max_length=266)
+    hybrid = models.CharField(max_length=266)
 
     def __str__(self):
-        return self.Hybrid
+        return self.hybrid
 
     class Meta:
         ordering: ['-date']

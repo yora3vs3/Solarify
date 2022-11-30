@@ -43,9 +43,9 @@ def index(request):
 
 @login_required(login_url='/authentication/login')
 def add_production(request):
-    Hybrid = Hybrid.objects.all()
+    hybrid = Hybrid.objects.all()
     context = {
-        'hybrid': Hybrid,
+        'hybrid': hybrid,
         'values': request.POST
     }
     if request.method == 'GET':
@@ -59,14 +59,15 @@ def add_production(request):
             return render(request, 'production/add_production.html', context)
         description = request.POST['description']
         date = request.POST['production_date']
-        Hybrid = request.POST['Hybrid']
+        hybrid = request.POST.get('hybrid',False);
+        
 
         if not description:
             messages.error(request, 'description is required')
             return render(request, 'production/add_production.html', context)
 
         UserProduction.objects.create(owner=request.user, power=power, date=date,
-                                  Hybrid=Hybrid, description=description)
+                                  hybrid=hybrid, description=description)
         messages.success(request, 'Record saved successfully')
 
         return redirect('production')
@@ -91,14 +92,14 @@ def production_edit(request, id):
             return render(request, 'production/edit_production.html', context)
         description = request.POST['description']
         date = request.POST['production_date']
-        Hybrid = request.POST['Hybrid']
+        hybrid = request.POST.get('hybrid',False);
 
         if not description:
             messages.error(request, 'description is required')
             return render(request, 'production/edit_production.html', context)
         production.power = power
-        production. date = date
-        production.Hybrid = Hybrid
+        production.date = date
+        production.hybrid = hybrid
         production.description = description
 
         production.save()
