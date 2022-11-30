@@ -31,7 +31,7 @@ searchField.addEventListener("keyup", (e) => {
           data.forEach((item) => {
             tbody.innerHTML += `
                 <tr>
-                <td>${item.amount}</td>
+                <td>${item.power}</td>
                 <td>${item.source}</td>
                 <td>${item.description}</td>
                 <td>${item.date}</td>
