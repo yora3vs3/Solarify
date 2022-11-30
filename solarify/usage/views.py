@@ -31,11 +31,11 @@ def index(request):
     paginator = Paginator(usage, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
-    units = UserPreference.objects.get(user=request.user).units
+    #units = UserPreference.objects.get(user=request.user).units
     context = {
         'usage': usage,
         'page_obj': page_obj,
-        'units': units
+    #    'units': units
     }
     return render(request, 'usage/index.html', context)
 
