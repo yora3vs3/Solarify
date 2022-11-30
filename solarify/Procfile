@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 web: gunicorn expenseswebsite.wsgi
 
+=======
+web: gunicorn solarify.wsgi
+>>>>>>> c825ab59c17408b68f641766ce3e45d7f8db4780
