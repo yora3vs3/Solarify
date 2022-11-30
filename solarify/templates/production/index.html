@@ -43,7 +43,7 @@
   <table class="table table-stripped table-hover">
     <thead>
       <tr>
-        <th>Amount ({{currency}})</th>
+        <th>power ({{currency}})</th>
         <th>Source</th>
         <th>Description</th>
         <th>Date</th>
@@ -54,7 +54,7 @@
     <tbody>
       {% for production in page_obj%}
       <tr>
-        <td>{{production.amount}}</td>
+        <td>{{production.power}}</td>
         <td>{{production.source}}</td>
         <td>{{production.description}}</td>
         <td>{{production.date}}</td>
@@ -80,7 +80,7 @@
       <table class="table table-stripped table-hover">
         <thead>
           <tr>
-            <th>Amount ({{currency}})</th>
+            <th>power ({{currency}})</th>
             <th>Source</th>
             <th>Description</th>
             <th>Date</th>
