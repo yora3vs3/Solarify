@@ -1,20 +1,20 @@
 {% extends 'base.html'%} {% block content %}
 
 <div class="container mt-3">
-  <h5>Preferred Currency</h5>
+  <h5>Preferred unit</h5>
   {% include 'partials/_messages.html' %}
   <form action="{% url 'preferences'%}" method="post">
     {% csrf_token %}
     <div class="input-group">
-      <select name="currency" class="custom-select" id="inputGroupSelect04">
-        {% if user_preferences.currency%}
-        <option name="currency" selected value="{{user_preferences.currency}}"
-          >{{user_preferences.currency}}</option
+      <select name="unit" class="custom-select" id="inputGroupSelect04">
+        {% if user_preferences.unit%}
+        <option name="unit" selected value="{{user_preferences.unit}}"
+          >{{user_preferences.unit}}</option
         >
-        {% endif %} {% for currency in currencies %}
+        {% endif %} {% for unit in units %}
 
-        <option name="currency" value="{{currency.name}} - {{currency.value}}"
-          >{{currency.name}} - {{currency.value}}
+        <option name="unit" value="{{unit.name}} - {{unit.value}}"
+          >{{unit.name}} - {{unit.value}}
         </option>
 
         {% endfor %}
