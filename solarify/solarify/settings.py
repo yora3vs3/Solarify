@@ -133,11 +133,11 @@ MESSAGE_TAGS = {
 
 
 # email stuff
-EMAIL_HOST = "smtp.yahoo.com"
+EMAIL_HOST = "smtp.mail.yahoo.com"
 EMAIL_HOST_USER = "mayora.brian@yahoo.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = 'Mayora1999'
+EMAIL_HOST_PASSWORD = 'Kebogo1999@'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
@@ -148,10 +148,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_PORT = 587
 #EMAIL_HOST_PASSWORD = os.environ.get('USER_EMAIL_PASS')
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'samuelmanoah61@gmail.com'
-EMAIL_HOST_PASSWORD = 'pjbnkbxfugnaxird'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 
