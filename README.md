@@ -21,8 +21,8 @@ HYBRID ENERGY
 PV(solar)
 DG(generator)
 MAINS(grid)
-This is a basic web application for use by customers with the SolarEdge software. Where you can calculate your energy production and savings by entering in just a few simple parameters.
- a username and site name to access the visualised data-
+This is a basic web application for use by customers with the Solar software. Where you can visualize your energy production and consumption by entering in just a few simple parameters.
+ a username and password to access your visualised data-
  production and usage (kwh)
 Solar -pv power output an alternative to mains (plant).Stored in Lithium Batteries
 Generator -a backup (changeover process).
