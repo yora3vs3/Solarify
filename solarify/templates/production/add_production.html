@@ -33,11 +33,11 @@
           />
         </div>
         <div class="form-group">
-          <label for="">Sources</label>
-          <select class="form-control" name="source">
-            {% for source in sources%}
-            <option name="source" value="{{source.name}}"
-              >{{source.name}}</option
+          <label for="">hybrid</label>
+          <select class="form-control" name="hybrid">
+            {% for hybris in hybrids%}
+            <option name="hybrid" value="{{hybrid.name}}"
+              >{{hybrid.name}}</option
             >
             {% endfor %}
           </select>

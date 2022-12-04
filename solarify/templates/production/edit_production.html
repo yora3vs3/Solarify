@@ -48,13 +48,13 @@
         </div>
         <div class="form-group">
           <label for="">hybrid</label>
-          <select class="form-control" name="source">
-            <option selected name="source" value="{{values.source}}"
-              >{{values.source}}</option
+          <select class="form-control" name="hybrid">
+            <option selected name="hybrid" value="{{values.hybrid}}"
+              >{{values.hybrid}}</option
             >
-            {% for source in sources%}
-            <option name="source" value="{{source.name}}"
-              >{{source.name}}</option
+            {% for hybrid in hybrids%}
+            <option name="hybrid" value="{{hybrid.name}}"
+              >{{hybrid.name}}</option
             >
 
             {% endfor %}

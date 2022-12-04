@@ -23,7 +23,7 @@ def search_production(request):
 
 @login_required(login_url='/authentication/login')
 def index(request):
-    categories = Hybrid.objects.all()
+    hybrid = Hybrid.objects.all()
     production = UserProduction.objects.filter(owner=request.user)
     paginator = Paginator(production, 5)
     page_number = request.GET.get('page')
@@ -92,7 +92,7 @@ def production_edit(request, id):
             return render(request, 'production/edit_production.html', context)
         description = request.POST['description']
         date = request.POST['production_date']
-        hybrid = request.POST.get('hybrid',False);
+        hybrid = request.POST.get('hybrid');
 
         if not description:
             messages.error(request, 'description is required')
